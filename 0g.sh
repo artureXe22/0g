@@ -64,6 +64,10 @@ wget -O $DAEMON_HOME/config/genesis.json https://github.com/0glabs/0g-chain/rele
 sed -i.bak -e "s/^seeds *=.*/seeds = \"${SEEDS}\"/" $DAEMON_HOME/config/config.toml
 #sed -i "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.00252aevmos\"/" $DAEMON_HOME/config/app.toml
 
+# Update peers in the config
+PEERS="9e2febd1c051e695e99d0180141f13eb7da128a6@75.119.152.232:26656,91b4d967e322606eb89892d609904eb5a8d8125b@51.83.66.181:27656,1d138c148692ab5830fc99979f6d376e25994a50@213.199.41.243:26656,fe1dbb596ca2001c1e4da85fdcb355122bad1e2e@213.199.53.225:26656,09276ca89027a4357ea7e68d0bfc25e58fe77377@176.126.87.189:26656,9087a83002cbacaaa1cc7532c086410fa89d3a70@88.198.52.89:64656,840be9da0743cb195519fb48848d571598f46b87@88.198.82.151:26656,e2f0de202df1770b8e7e2780e1562e138caaf8a6@62.169.18.171:26656,3492fde06a28171cb8e257a5a00448ae10ef9d68@194.163.157.109:12656,fde6660ee4551f36ffefe549fefb4aa093ac7f29@194.35.120.148:12656,2b5e2dcb5a307529f064b08137e70295785df547@38.242.210.236:26656,773a0b5f35225210c0f04d78bf28bed2836c13c5@38.242.156.74:26656,c024d83af04b34f9afef7d6f8b00343978174a1c@37.27.117.171:26656,b962d4afb587406e20b9cbd8f017e330d3f9a8ff@51.91.74.124:26656,5d2074e5a5631c4b95b06a1469439e6a2dad0961@212.192.26.234:26656" && \
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" $HOME/.0gchain/config/config.toml && \
+
 
 echo "[Unit]
 Description=$NODE Node
@@ -84,8 +88,8 @@ Storage=persistent
 EOF
 
 echo -e '\n\e[42mDownloading a snapshot\e[0m\n' && sleep 1
-curl https://rpc-zero-gravity-testnet.trusted-point.com/latest_snapshot.tar.lz4 | lz4 -dc - | tar -xf - -C $DAEMON_HOME
-wget -O $DAEMON_HOME/config/addrbook.json https://rpc-zero-gravity-testnet.trusted-point.com/addrbook.json
+curl http://snapshots.liveraven.net/snapshots/testnet/zero-gravity/zgtendermint_16600-1_latest.tar.lz4 | lz4 -dc - | tar -xf - -C $DAEMON_HOME
+wget -O $DAEMON_HOME/config/addrbook.json https://snapshots.liveraven.net/snapshots/testnet/zero-gravity/addrbook.json
 
 echo -e '\n\e[42mChecking a ports\e[0m\n' && sleep 1
 #CHECK PORTS
