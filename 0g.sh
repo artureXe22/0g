@@ -88,7 +88,7 @@ Storage=persistent
 EOF
 
 echo -e '\n\e[42mDownloading a snapshot\e[0m\n' && sleep 1
-curl http://snapshots.liveraven.net/snapshots/testnet/zero-gravity/zgtendermint_16600-1_latest.tar.lz4 | lz4 -dc - | tar -xf - -C $DAEMON_HOME
+curl -L http://snapshots.liveraven.net/snapshots/testnet/zero-gravity/zgtendermint_16600-1_latest.tar.lz4 | tar -Ilz4 -xf - -C $DAEMON_HOME
 wget -O $DAEMON_HOME/config/addrbook.json https://snapshots.liveraven.net/snapshots/testnet/zero-gravity/addrbook.json
 
 echo -e '\n\e[42mChecking a ports\e[0m\n' && sleep 1
